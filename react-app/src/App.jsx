@@ -7,6 +7,9 @@ import Greet from './Greet'
 import List from './List'
 import Shopcart from './Shopcart'
 import Rental from './Rental'
+import Counter from './Counter'
+import ColorGrid from './ColorGrid'
+import ColorBoxGrid from './ColorBoxGrid'
 
 
 const data = [
@@ -26,6 +29,26 @@ const properties = [
 ]
 
 
+const colors = [
+  "#E53935",
+  "#E91E63",
+  "#9C27B0",
+  "#673AB7",
+  "#3F51B5",
+  "#2196F3",
+  "#03A9F4",
+  "#00BCD4",
+  "#009688",
+  "#4CAF50",
+  "#8BC34A",
+  "#CDDC39",
+  "#FFEB3B",
+  "#FFC107",
+  "#FF9800",
+  "#FF5722",
+];
+
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -40,7 +63,9 @@ function App() {
       <Greet name="Abhi"/>
       <List values={[1, 2, 3, 4, 5]}/>
       <List values={["a", "b", "c", "d"]}/> */}
-      <Rental properties={properties}/>
+      {/* <Rental properties={properties}/> */}
+      {/* <Counter/> */}
+      <ColorBoxGrid colors={colors}/>
     </>
   )
 }
