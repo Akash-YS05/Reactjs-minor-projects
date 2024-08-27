@@ -10,6 +10,8 @@ import Rental from './Rental'
 import Counter from './Counter'
 import ColorGrid from './ColorGrid'
 import ColorBoxGrid from './ColorBoxGrid'
+import CounterNew from './CounterNew'
+import ScoreKeeper from './ScoreKeeper'
 
 
 const data = [
@@ -64,8 +66,10 @@ function App() {
       <List values={[1, 2, 3, 4, 5]}/>
       <List values={["a", "b", "c", "d"]}/> */}
       {/* <Rental properties={properties}/> */}
-      {/* <Counter/> */}
-      <ColorBoxGrid colors={colors}/>
+      {/* <Counter/> --- correct counter method - CounterNew*/} 
+      {/* <ColorBoxGrid colors={colors}/> */}
+      {/* <CounterNew/> */}
+      <ScoreKeeper/>
     </>
   )
 }
