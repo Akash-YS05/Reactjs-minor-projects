@@ -13,6 +13,7 @@ import ColorBoxGrid from './ColorBoxGrid'
 import CounterNew from './CounterNew'
 import ScoreKeeper from './ScoreKeeper'
 import EmojiClicker from './EmojiClicker'
+import ScoreKeeperNew from './ScoreKeeperNew'
 
 
 const data = [
@@ -71,7 +72,8 @@ function App() {
       {/* <ColorBoxGrid colors={colors}/> */}
       {/* <CounterNew/> */}
       {/* <ScoreKeeper/> */}
-      <EmojiClicker/>
+      {/* <EmojiClicker/> */}
+      <ScoreKeeperNew players={3} target={5}/>
     </>
   )
 }

@@ -21,6 +21,13 @@ export default function EmojiClicker() {
         })
 
     }
+    const changeHeart = () => {
+        setEmojis(allEmoji => {
+            return allEmoji.map((e) => {
+                return {...e, emoji: "❤️"}
+            })
+        })
+    }
     return (
         <div>
             {emojis.map((e) => (
@@ -28,6 +35,7 @@ export default function EmojiClicker() {
                 
             ))}
             <button onClick={addEmoji}>Add Emoji</button>
+            <button onClick={changeHeart}>Make em all Hearts!</button>
         </div>
     )
 } 
