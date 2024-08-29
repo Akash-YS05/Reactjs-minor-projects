@@ -14,6 +14,10 @@ import CounterNew from './CounterNew'
 import ScoreKeeper from './ScoreKeeper'
 import EmojiClicker from './EmojiClicker'
 import ScoreKeeperNew from './ScoreKeeperNew'
+import DieNew from './DieNew'
+import Dice from './Dice'
+import LuckyN from './LuckyN'
+import { sum } from './utils'
 
 
 const data = [
@@ -53,6 +57,15 @@ const colors = [
 ];
 
 
+function lessThan4(dice) {
+  return sum(dice) < 4
+}
+
+function AllSame(dice) {
+  return dice.every((v) => v === dice[0])
+}
+
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -73,7 +86,11 @@ function App() {
       {/* <CounterNew/> */}
       {/* <ScoreKeeper/> */}
       {/* <EmojiClicker/> */}
-      <ScoreKeeperNew players={3} target={5}/>
+      {/* <ScoreKeeperNew players={3} target={5}/> */}
+      {/* <DieNew val={3}/> */}
+      {/* <Dice dice={[3, 4, 5, 6]}/> */}
+      <LuckyN winCheck={lessThan4} title="Roll Less Than 4!"/>
+      <LuckyN winCheck={AllSame} title="Roll the Same Number!"/>
     </>
   )
 }
