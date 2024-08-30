@@ -18,6 +18,8 @@ import DieNew from './DieNew'
 import Dice from './Dice'
 import LuckyN from './LuckyN'
 import { sum } from './utils'
+import UsernameForm from './UsernameForm'
+import Signup from './Signup'
 
 
 const data = [
@@ -89,8 +91,10 @@ function App() {
       {/* <ScoreKeeperNew players={3} target={5}/> */}
       {/* <DieNew val={3}/> */}
       {/* <Dice dice={[3, 4, 5, 6]}/> */}
-      <LuckyN winCheck={lessThan4} title="Roll Less Than 4!"/>
-      <LuckyN winCheck={AllSame} title="Roll the Same Number!"/>
+      {/* <LuckyN winCheck={lessThan4} title="Roll Less Than 4!"/>
+      <LuckyN winCheck={AllSame} title="Roll the Same Number!"/> */}
+      {/* <UsernameForm/> */}
+      <Signup/>
     </>
   )
 }
