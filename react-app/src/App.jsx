@@ -20,6 +20,9 @@ import LuckyN from './LuckyN'
 import { sum } from './utils'
 import UsernameForm from './UsernameForm'
 import Signup from './Signup'
+import FetchQuote from './fetchQuote(useState)'
+import FetchQuoteLoader from './assets/FetchQuoteLoader'
+
 
 
 const data = [
@@ -94,7 +97,9 @@ function App() {
       {/* <LuckyN winCheck={lessThan4} title="Roll Less Than 4!"/>
       <LuckyN winCheck={AllSame} title="Roll the Same Number!"/> */}
       {/* <UsernameForm/> */}
-      <Signup/>
+      {/* <Signup/> */}
+      {/* <FetchQuote/> */}
+      <FetchQuoteLoader/>
     </>
   )
 }
