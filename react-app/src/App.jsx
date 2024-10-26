@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -19,9 +19,12 @@ import Dice from './Dice'
 import LuckyN from './LuckyN'
 import { sum } from './utils'
 import UsernameForm from './UsernameForm'
+import UseEffect100x from './useEffect100x'
 import Signup from './Signup'
 import FetchQuote from './fetchQuote(useState)'
 import FetchQuoteLoader from './assets/FetchQuoteLoader'
+import UseRef from './UseRef'
+import Useref2 from './UseRef2'
 
 
 
@@ -70,14 +73,34 @@ function AllSame(dice) {
   return dice.every((v) => v === dice[0])
 }
 
+const BulbContext = createContext()
+
+function BulbProvider({children}) {
+  const [bulbOn, setBulbOn] = useState(true)
+
+  return <BulbContext.Provider value={{
+    bulbOn: bulbOn,
+    setBulbOn: setBulbOn
+  }}>
+
+    {children}
+
+  </BulbContext.Provider>
+}
 
 function App() {
   const [count, setCount] = useState(0)
-
   
 
   return (
+
     <>
+      <div>
+        <BulbProvider>
+          <Light/>
+        </BulbProvider>
+      </div>
+
       {/* <Shopcart items={data}/> */}
       {/* <Die num = {10}/>
       <Greet name="Akash"/>
@@ -99,9 +122,39 @@ function App() {
       {/* <UsernameForm/> */}
       {/* <Signup/> */}
       {/* <FetchQuote/> */}
-      <FetchQuoteLoader/>
+      {/* <FetchQuoteLoader/> */}
+      {/* <UseEffect100x/> */}
+      {/* <UseRef/> */}
+      {/* <Useref2/> */}
+
     </>
   )
+}
+
+function Light() {
+  return <div>
+    <LightBulb />
+    <LightSwitch />
+  </div>
+}
+
+function LightBulb() {
+
+  const {bulbOn} = useContext(BulbContext)
+
+  return <div>
+    {bulbOn ? "Light On" : "Light Off"}
+  </div>
+}
+
+function LightSwitch() {
+
+  const {bulbOn, setBulbOn} = useContext(BulbContext)
+
+  function toggle() {
+    setBulbOn(!bulbOn)
+  }
+  return <button onClick={toggle}>Toggle Light</button>
 }
 
 export default App
