@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -82,25 +82,104 @@ function BulbProvider({children}) {
     bulbOn: bulbOn,
     setBulbOn: setBulbOn
   }}>
-
+ 
     {children}
 
   </BulbContext.Provider>
 }
 
-function App() {
+//custom hook
+function useCounter() {
   const [count, setCount] = useState(0)
-  
+
+  function increaseCount() {
+    setCount(c=>c+1)
+  }
+
+  return {
+    count: count,
+    increaseCount: increaseCount
+  }
+}
+
+//custom hook - fetches data from custom url from backend
+function useFetch(url) {
+  const [post, setPost] = useState({})
+  const [loading, setLoading] = useState(true)
+
+  async function getPosts() {
+    setLoading(true)
+    const response = await fetch(url)
+    const json = await response.json()
+
+    setPost(json)
+    setLoading(false)
+  }
+  //cant make the argument function in useEffect as async
+  useEffect(()=>{
+    getPosts()
+  }, [url])
+
+  // useEffect(()=>{
+  //   setInterval(getPosts, 10000);
+  // }, [])
+
+  return {
+    post,
+    loading
+  }
+}
+
+//custom hook - provides the last value of the state before it re renders and updates
+function usePrev(value) {
+
+  const ref = useRef()
+
+  useEffect(()=>{
+    ref.current = value
+  }, [value])
+
+  return ref.current
+}
+
+
+//custom hook - sends arequest to backend after a timeout when the user is typing frantically (prevents spamming on backend)
+function useDebounce(originalFn) {
+  const currentClock = useRef()
+
+  function fn() {
+    clearTimeout(currentClock)
+    currentClock.current = setTimeout(originalFn, 1000)
+  }
+
+  return fn
+}
+
+function App() {
+  const {count, increaseCount} = useCounter()
+  const [currentPost, setCurrentPost] = useState(1)
+  const {post, loading} = useFetch("https://jsonplaceholder.typicode.com/posts/" + currentPost)
+  const [state, setState] = useState(0)
+  const prev = usePrev(state)
+  function backendData() {
+    fetch("api.amazon.com/search")
+  }
+  const debouncedFn = useDebounce(backendData)
+
+  if (loading) {
+    return <div>
+      loading...
+    </div>
+  }
 
   return (
 
     <>
-      <div>
+      {/* <div>
         <BulbProvider>
           <Light/>
         </BulbProvider>
-      </div>
-
+      </div> */}
       {/* <Shopcart items={data}/> */}
       {/* <Die num = {10}/>
       <Greet name="Akash"/>
@@ -127,9 +206,25 @@ function App() {
       {/* <UseRef/> */}
       {/* <Useref2/> */}
 
+        {/* <div>
+          <button onClick={() => setCurrentPost(1)}>1</button>
+          <button onClick={() => setCurrentPost(2)}>2</button>
+          <button onClick={() => setCurrentPost(3)}>3</button>
+          {JSON.stringify(post)}
+        </div> */}
+        {/* <div>
+          {state}
+          <button onClick={() => setState(s=>s+1)}>Click me</button>
+          <p>Initial state was {prev}</p>
+        </div> */}
+        <input type="text" onChange={debouncedFn} />
+
     </>
   )
 }
+
+
+
 
 function Light() {
   return <div>
